@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+// color palette
+$color1: #EBE3CB;
+$color2: #FB6B5B;
+$color3: #342C54;
+$color4: #FC8B76;
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

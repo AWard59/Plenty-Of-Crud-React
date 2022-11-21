@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
 import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
@@ -80,11 +80,15 @@ const SignUp = ({ msgAlert, setUser }) => {
             />
           </Form.Group>
           <br />
+            <div style={{display:'inline-flex'}}>
 
-          <Button className='mt-2' variant='primary' type='submit'>
-Submit
-          </Button>
-        </Form>
+              <Button className='mt-2' variant='primary' type='submit'>
+    Submit
+              </Button>
+              <p style={{marginLeft:'5vw'}}>Already signed up?&ensp;</p>
+              <Link to='../sign-in'>Sign In</Link>
+            </div>
+          </Form>
       </div>
     </div>
   )

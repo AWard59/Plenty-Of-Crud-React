@@ -14,7 +14,7 @@ const unauthenticatedOptions = (
   </>
 )
 
-export const Header = ({ user }) => (
+const Header = ({ user }) => (
 	<Navbar bg='primary' variant='dark' expand='md'>
 		<Container>
 			<Navbar.Brand>
@@ -36,3 +36,5 @@ export const Header = ({ user }) => (
 		</Container>
 	</Navbar>
 )
+
+export default Header

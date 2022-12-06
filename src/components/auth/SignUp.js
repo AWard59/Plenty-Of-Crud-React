@@ -38,7 +38,7 @@ const SignUp = ({ msgAlert, setUser }) => {
   }
 
   if (shouldNavigate) {
-    return <Navigate to='/profile/' />
+    return <Navigate to='/userProfile/' />
   }
 
   return (

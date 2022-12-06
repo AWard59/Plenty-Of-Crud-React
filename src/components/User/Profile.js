@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom'
 
 import { Form, Button } from 'react-bootstrap'
 
+import { profileUpdate } from '../../api/profile'
+
 
 const Profile = ({ msgAlert, user }) => {
   const [userName, setUserName] = useState('')
@@ -19,7 +21,7 @@ const Profile = ({ msgAlert, user }) => {
   const onUpdateProfile = async (event) => {
     event.preventDefault()
     try {
-// api call
+      await profileUpdate(userName, userTag, userAge, userGender, userLocation, userAbout, user)
       msgAlert({
         heading: 'Profile Update Success',
         variant: 'success',
@@ -77,8 +79,8 @@ const Profile = ({ msgAlert, user }) => {
 									name='userGender'
 									value={userGender}
 									type={userGender}
-									id='M'
-									label='M'
+									id='Male'
+									label='Male'
 									onChange={(event) => setUserGender(event.target.id)}
 								/>
 								<Form.Check
@@ -86,8 +88,8 @@ const Profile = ({ msgAlert, user }) => {
 									name='userGender'
 									value={userGender}
 									type={userGender}
-									id='F'
-									label='F'
+									id='Female'
+									label='Female'
 									onChange={(event) => setUserGender(event.target.id)}
 								/>
 							</div>

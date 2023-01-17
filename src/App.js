@@ -64,6 +64,7 @@ const App = () => {
           {/* Generic Routes */}
           <Route path='/' element={<Home user={user} />} />
           {/* User Routes */}
+          {/* <Route path='/browse' element={<Browse user={user} />} /> */}
           <Route path='/userProfile' element={<Profile user={user} />} />
         </Routes>
       </main>

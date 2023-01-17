@@ -12,9 +12,8 @@ const SignIn = ({ msgAlert, setUser }) => {
   const [password, setPassword] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
 
-  const onSignIn = async (event) => {
+  const onSignIn = async (event, newUser) => {
     event.preventDefault()
-
     try {
       const res = await signIn(email, password)
       setUser(res.data.user)
@@ -23,7 +22,7 @@ const SignIn = ({ msgAlert, setUser }) => {
         message: signInSuccess,
         variant: 'success'
       })
-      setShouldNavigate(true)
+        setShouldNavigate(true)
     } catch (error) {
       setEmail('')
       setPassword('')
@@ -36,7 +35,7 @@ const SignIn = ({ msgAlert, setUser }) => {
   }
 
   if (shouldNavigate) {
-    return <Navigate to='/' />
+    return <Navigate to='/browse' />
   }
 
   return (

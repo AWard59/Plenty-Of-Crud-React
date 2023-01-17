@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate, Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
 import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
@@ -12,12 +12,14 @@ const SignUp = ({ msgAlert, setUser }) => {
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
+  const newUser = true
 
   const onSignUp = async (event) => {
     event.preventDefault()
     try {
       await signUp(email, password, passwordConfirmation)
-      const res = await signIn(email, password)
+      let newUser = true
+      const res = await signIn(email, password, newUser)
       setUser(res.data.user)
       msgAlert({
         heading: 'Sign Up Success',
@@ -38,7 +40,7 @@ const SignUp = ({ msgAlert, setUser }) => {
   }
 
   if (shouldNavigate) {
-    return <Navigate to='/userProfile/' />
+    return <Navigate to='/userProfile' state={{ value: newUser }} />
   }
 
   return (

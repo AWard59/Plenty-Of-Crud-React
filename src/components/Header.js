@@ -16,6 +16,7 @@ const unauthenticatedOptions = (
 
 const authenticatedOptions = (
 	<>
+		<NavLink to='/browse' className='nav-link'>Browse</NavLink>
 		<NavLink to='/userProfile' className='nav-link'>Profile</NavLink>
 	</>
 )

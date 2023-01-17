@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 import { Form, Button } from 'react-bootstrap'
+import RangeSlider from 'react-bootstrap-range-slider'
 
-import { profileUpdate } from '../../api/profile'
+import { createInitialProfile, profileUpdate } from '../../api/profile'
 
 
 const Profile = ({ msgAlert, user }) => {
@@ -13,6 +14,14 @@ const Profile = ({ msgAlert, user }) => {
   const [userGender, setUserGender] = useState('')
   const [userLocation, setUserLocation] = useState('')
   const [userAbout, setUserAbout] = useState('')
+  const location = useLocation()
+  let newUser
+
+  if (location.state.value === true) {
+    newUser= location.state.value
+  } else {
+    newUser = false
+  }
 
   if (!user) {
     return <Navigate to='/' />
@@ -21,14 +30,23 @@ const Profile = ({ msgAlert, user }) => {
   const onUpdateProfile = async (event) => {
     event.preventDefault()
     try {
-      await profileUpdate(userName, userTag, userAge, userGender, userLocation, userAbout, user)
-      msgAlert({
-        heading: 'Profile Update Success',
-        variant: 'success',
-      })
+      if (newUser === true) {
+        await createInitialProfile(userName, userTag, userAge, userGender, userLocation, userAbout, user)
+        msgAlert({
+          heading: 'Profile Create Success',
+          variant: 'success',
+        })
+      } else {
+        await profileUpdate(userName, userTag, userAge, userGender, userLocation, userAbout, user)
+        msgAlert({
+          heading: 'Profile Update Success',
+          variant: 'success',
+        })
+      }
     } catch (error) {
+      console.log(error)
       msgAlert({
-        heading: 'Profile Update Failed',
+        heading: 'Profile Update/Create Failed',
         variant: 'danger'
       })
     }
@@ -59,42 +77,39 @@ const Profile = ({ msgAlert, user }) => {
 							onChange={(event) => setUserTag(event.target.value)}
 						/>
 					</Form.Group>
-					<Form.Group controlId='userAge'>
-						<Form.Label>Age</Form.Label>
-						<Form.Range
-							name='userAge'
-							value={userAge}
-							min='18'
-							max='99'
-							onChange={(event) => setUserAge(event.target.value)}
-						/>
-					</Form.Group>
-					{/* Test */}
-					<Form.Group controlId='userGender'>
-						<Form.Label>Gender</Form.Label>
-						{['radio'].map((type) => (
-							<div key={userGender} className='mb-3'>
-								<Form.Check
-									inline
-									name='userGender'
-									value={userGender}
-									type={userGender}
-									id='Male'
-									label='Male'
-									onChange={(event) => setUserGender(event.target.id)}
-								/>
-								<Form.Check
-									inline
-									name='userGender'
-									value={userGender}
-									type={userGender}
-									id='Female'
-									label='Female'
-									onChange={(event) => setUserGender(event.target.id)}
-								/>
-							</div>
-						))}
-					</Form.Group>
+          <br></br>
+            <Form.Group controlId='userAge'>
+              <Form.Label>Age</Form.Label>
+                <RangeSlider
+                  name='userAge'
+                  value={userAge}
+                  variant='primary'
+                  min='18'
+                  max='99'
+                  onChange={(event) => setUserAge(event.target.value)}
+                />
+            </Form.Group>
+            <Form.Group controlId='userGender'>
+              <Form.Label>Gender</Form.Label>
+              {['radio'].map((type) => (
+                <div key={userGender} className='mb-3'>
+                  <Form.Check
+                    inline
+                    name='userGender'
+                    id='Male'
+                    label='Male'
+                    onChange={(event) => setUserGender(event.target.id)}
+                  />
+                  <Form.Check
+                    inline
+                    name='userGender'
+                    id='Female'
+                    label='Female'
+                    onChange={(event) => setUserGender(event.target.id)}
+                  />
+							  </div>
+              ))}
+            </Form.Group>
 					<Form.Group controlId='userLocation'>
 						<Form.Label>Location</Form.Label>
 						<Form.Control
@@ -103,7 +118,7 @@ const Profile = ({ msgAlert, user }) => {
 							type='text'
 							placeholder='Location'
 							onChange={(event) => setUserLocation(event.target.value)}
-						/>
+              />
 					</Form.Group>
 					<Form.Group controlId='userAbout'>
 						<Form.Label>About</Form.Label>
@@ -113,7 +128,7 @@ const Profile = ({ msgAlert, user }) => {
 							type='text'
 							placeholder='About'
 							onChange={(event) => setUserAbout(event.target.value)}
-						/>
+              />
 					</Form.Group>
 					<Button className='mt-2' variant='primary' type='submit'>
 						Update Profile

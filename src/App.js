@@ -11,6 +11,8 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 
+import Profile from './components/User/Profile'
+
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
@@ -61,6 +63,8 @@ const App = () => {
           />
           {/* Generic Routes */}
           <Route path='/' element={<Home user={user} />} />
+          {/* User Routes */}
+          <Route path='/userProfile' element={<Profile user={user} />} />
         </Routes>
       </main>
     </>

@@ -14,6 +14,12 @@ const unauthenticatedOptions = (
   </>
 )
 
+const authenticatedOptions = (
+	<>
+		<NavLink to='/userProfile' className='nav-link'>Profile</NavLink>
+	</>
+)
+
 const Header = ({ user }) => (
 	<Navbar className='navBar' variant='light' expand='md'>
 		<Container>
@@ -31,7 +37,7 @@ const Header = ({ user }) => (
 					{user && (
 						<span className='navbar-text me-2'>Welcome, {user.email}</span>
 					)}
-					{unauthenticatedOptions}
+					{user ? authenticatedOptions : unauthenticatedOptions}
 				</Nav>
 			</Navbar.Collapse>
 		</Container>

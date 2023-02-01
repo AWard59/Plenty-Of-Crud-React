@@ -37,6 +37,7 @@ const Profile = ({ msgAlert, user }) => {
           heading: 'Profile Create Success',
           variant: 'success',
         })
+        newUser = false
     } else {
         await profileUpdate(userName, userTag, userAge, userGender, userLocation, userAbout, user)
         msgAlert({

@@ -2,11 +2,13 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createInitialProfile = (name, tag, age, gender, location, description, user) => {
-  console.log(name)
+  console.log('create', name)
+  console.log('user id', user._id)
+  console.log('token', user.token)
 	return axios.post(
-		apiUrl + 'userProfile/',
+		apiUrl + '/userProfile/',
 		{
-			data: {
+			userProfile: {
 				name,
 				tag,
 				age,
@@ -17,15 +19,16 @@ export const createInitialProfile = (name, tag, age, gender, location, descripti
 		},
 		{
 			headers: {
-				Authorization: `Token ${user.token}`,
+				Authorization: `Bearer ${user.token}`,
 			},
 		}
 	)
 }
 
-export const profileUpdate = (name, tag, age, gender, location, description, user) => {
+export const profileUpdate = (name, tag, age, gender, location, description, user, profileId) => {
+  console.log('update', name)
   return axios.patch(
-    apiUrl + 'userProfile/',
+    `${apiUrl}/userProfile/${profileId}`,
     {
       userProfile: {
         name,
@@ -38,7 +41,7 @@ export const profileUpdate = (name, tag, age, gender, location, description, use
     },
     {
       headers: {
-        Authorization: `Token ${user.token}`
+        Authorization: `Bearer ${user.token}`
       }
     }
   )

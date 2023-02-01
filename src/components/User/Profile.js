@@ -29,26 +29,27 @@ const Profile = ({ msgAlert, user }) => {
 
   const onUpdateProfile = async (event) => {
     event.preventDefault()
+    console.log(newUser)
     try {
-      if (newUser === true) {
+        if (newUser === true) {
         await createInitialProfile(userName, userTag, userAge, userGender, userLocation, userAbout, user)
         msgAlert({
           heading: 'Profile Create Success',
           variant: 'success',
         })
-      } else {
+    } else {
         await profileUpdate(userName, userTag, userAge, userGender, userLocation, userAbout, user)
         msgAlert({
           heading: 'Profile Update Success',
           variant: 'success',
         })
-      }
+      } 
     } catch (error) {
-      console.log(error)
-      msgAlert({
-        heading: 'Profile Update/Create Failed',
-        variant: 'danger'
-      })
+        console.log(error)
+        msgAlert({
+          heading: 'Profile Update/Create Failed',
+          variant: 'danger'
+        })
     }
   }
 
